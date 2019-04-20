@@ -39,9 +39,22 @@ Source Notes:
 
 **Assessable Income**, as defined by the source, is the total **yearly** income, subtract allowance deductions such as business expenses, employment expenses & donations.
 
-$$Income_{Assessable} = Income_{Yearly} - Allowable Deductions$$
+[Read more here (under Expenses and Donations)](https://www.iras.gov.sg/irashome/Individuals/Locals/Working-Out-Your-Taxes/Deductions-for-Individuals--Reliefs--Expenses--Donations-/)
 
+In other words:
 
+$$Income_{Assessable} = Income_{Yearly} - (expenses + donations)$$
+
+## Chargeable Income
+
+**Chargeable Income**, as defined by the source, is **Assessable Income** minus personal reliefs
+
+[Read more here (under Reliefs)](https://www.iras.gov.sg/irashome/Individuals/Locals/Working-Out-Your-Taxes/Deductions-for-Individuals--Reliefs--Expenses--Donations-/)
+
+In other words:
+
+$$Income_{Chargeable} = Income_{Assessable} - reliefs =
+  Income_{Yearly} - (expenses + donations + reliefs)$$
 
 ## R Markdown
 

@@ -406,7 +406,17 @@ $(document).ready(function () {
 <div id="assessable-income" class="section level2">
 <h2>Assessable Income</h2>
 <p><strong>Assessable Income</strong>, as defined by the source, is the total <strong>yearly</strong> income, subtract allowance deductions such as business expenses, employment expenses &amp; donations.</p>
-<p><span class="math display">\[Income_Assessable = Income_Yearly - Allowable Deductions \]</span></p>
+<p><a href="https://www.iras.gov.sg/irashome/Individuals/Locals/Working-Out-Your-Taxes/Deductions-for-Individuals--Reliefs--Expenses--Donations-/">Read more here (under Expenses and Donations)</a></p>
+<p>In other words:</p>
+<p><span class="math display">\[Income_{Assessable} = Income_{Yearly} - Allowable Deductions\]</span> <span class="math display">\[Allowable Deductions = (expenses + donations)\]</span></p>
+</div>
+<div id="chargeable-income" class="section level2">
+<h2>Chargeable Income</h2>
+<p><strong>Chargeable Income</strong>, as defined by the source, is <strong>Assessable Income</strong> minus personal reliefs</p>
+<p><a href="https://www.iras.gov.sg/irashome/Individuals/Locals/Working-Out-Your-Taxes/Deductions-for-Individuals--Reliefs--Expenses--Donations-/">Read more here (under Reliefs)</a></p>
+<p>In other words:</p>
+<p><span class="math display">\[Income_{Chargeable} = Income_{Assessable} - reliefs =
+  Income_{Yearly} - (expenses + donations + reliefs)\]</span></p>
 </div>
 <div id="r-markdown" class="section level2">
 <h2>R Markdown</h2>
