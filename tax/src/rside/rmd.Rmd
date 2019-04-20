@@ -25,7 +25,7 @@ Source Notes:
 - 'Non-Tax Resident refers to an individual who has worked in Singapore for
   less than 183 days in the preceding year of the Year of Assessment.'
 
-## Columns + Definitions
+## Columns
 
 - **Year of Assessment**: When the taxation assessment was conducted
 - **Assessed Income Group**: Yearly income in SGD grouping
@@ -35,7 +35,7 @@ Source Notes:
 - **Chargeable Income**: S$ Thousand
 - **Net Tax Assessed**: S$ Thousand
 
-## Assessable Income
+### Assessable Income
 
 **Assessable Income**, as defined by the source, is the total **yearly** income, subtract allowance deductions such as business expenses, employment expenses & donations.
 
@@ -45,7 +45,7 @@ In other words:
 
 $$Income_{Assessable} = Income_{Yearly} - (expenses + donations)$$
 
-## Chargeable Income
+### Chargeable Income
 
 **Chargeable Income**, as defined by the source, is **Assessable Income** minus personal reliefs
 
@@ -53,8 +53,20 @@ $$Income_{Assessable} = Income_{Yearly} - (expenses + donations)$$
 
 In other words:
 
-$$Income_{Chargeable} = Income_{Assessable} - reliefs =
-  Income_{Yearly} - (expenses + donations + reliefs)$$
+$$Income_{Chargeable} = Income_{Assessable} - reliefs = Income_{Yearly} - (expenses + donations + reliefs)$$
+
+### Net Tax
+
+**Net Tax**, as defined by the source, is the total Tax paid which after accounting into tax credits, tax remission, tax rebates, tax deducted at source
+
+### Non-Tax Resident
+
+**Non-Tax Resident** is a group that pays a different set of tax rates compared to a **Tax Resident**. A **Non-Tax Resident** is defined as:
+
+- Singapore Citizen (SC) or Singapore Permanent Resident (SPR) who resides in Singapore except for temporary absences; or
+- Foreigner who has stayed / worked in Singapore (excludes director of a company) for **183 days or more in the previous year**. i.e. the year before the YA.
+
+[Read more here](https://www.iras.gov.sg/irashome/Individuals/Foreigners/Working-out-your-taxes/Tax-Rates-for-Resident-and-Non-Residents/)
 
 ## R Markdown
 
