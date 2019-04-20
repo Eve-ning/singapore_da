@@ -68,6 +68,17 @@ $$Income_{Chargeable} = Income_{Assessable} - reliefs = Income_{Yearly} - (expen
 
 [Read more here](https://www.iras.gov.sg/irashome/Individuals/Foreigners/Working-out-your-taxes/Tax-Rates-for-Resident-and-Non-Residents/)
 
+## Goals
+
+We can look at the surface trends of this data provided, such as:
+- How has the economy grown over the years?
+- Has the disparity between the income groups increased, what is the trend?
+- How is tax related to the income groups, is it fair?
+
+
+
+
+
 ## R Markdown
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
