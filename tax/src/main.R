@@ -1,13 +1,15 @@
 require(ggplot2)
 require(stringr)
 require(magrittr)
+require(directlabels)
+require(grid)
 
 # Load in data
 tax.path <- "C:\\Users\\johnc\\Documents\\Projects\\Data\\singapore\\tax\\main.csv"
 tax <- read.csv(tax.path, header = T, sep = ',', stringsAsFactors = T)
 
 
-# Grab levels to sort them correctly
+# Sort Levels correctly
 {
   tax.levels <- data.frame(levels(tax$assessed_income_group)) # Access Levels
   
@@ -29,18 +31,31 @@ tax <- read.csv(tax.path, header = T, sep = ',', stringsAsFactors = T)
     factor(levels = paste(tax.levels$levels.tax.assessed_income_group.))
 }
 
-tax.resident = subset(tax, tax$resident_type == "Tax Resident") # Drop all non-Tax residents
+# Drop all non-Tax residents
+tax.resident = subset(tax, tax$resident_type == "Tax Resident") 
 
-tax.resident.ends = subset(tax,
-                           year_of_assessment == max(tax$year_of_assessment) |
-                             year_of_assessment == min(tax$year_of_assessment))
-
-
-ggplot(tax.resident, aes(year_of_assessment, number_of_taxpayers, colour = assessed_income_group)) +
-  geom_point() + geom_line(aes(group = assessed_income_group)) +
-  ylab("Number of Tax Payers (*1000)") + xlab("Year of Assessment") +
-  scale_y_continuous(labels = function(y)y/1000.0)
-
+# Draw Plot
+ggplot(tax.resident,
+       aes(x = factor(year_of_assessment), # We use factor to force all x labels
+           number_of_taxpayers,
+           colour = assessed_income_group) # Color by Levels
+       ) +
+  geom_point() + # Add Points
+  geom_line(aes(group = assessed_income_group)) + # Add Lines
+  ylab("Number of Tax Payers (*1000)") + # Y Label
+  xlab("Year of Assessment") + # X Label
+  scale_y_continuous(labels = function(y)y/1000.0) + # Scale Y Axis by /1000
+  scale_x_discrete(expand = expand_scale(add = c(0.3,2))) + 
+  theme(legend.position = "none", # Remove Legends
+        plot.margin = unit(c(1,2,1,2),"cm")
+        ) + 
+  geom_dl( # Draw Labels
+    aes(label=assessed_income_group),
+    method = list('last.bumpup',
+                  "last.points",
+                  cex = 0.8,
+                  dl.trans(x=x+0.2)
+                  )) 
 
 
             
