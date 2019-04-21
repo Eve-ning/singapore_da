@@ -7,6 +7,7 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+load("tax.RData")
 ```
 
 # Taxation in Singapore
@@ -80,7 +81,43 @@ We can look at the surface trends of this data provided, such as:
 Taxed amounts aside, we can analyse how many people are in specific **income groups** by looking at the data.
 
 We will simply drop these data into a ggplot where we group them by their income groups.
-![tax_plot](tax_plot.png)
+![tax_plot](img/tax_plot.png)
 
-It is a straightforward incline for all income groups from 2004 onwards, however, there has been anomalies where some income groups have dropped
+
+```{r}
+knitr::kable(tax.resident.grw.wide)
+```
+
+![growth_gif](img/dist.gif)
+
+## Observations
+
+It is a straightforward incline for all income groups from 2004 to 2019, however, there's some visible anomalies.
+
+### Largest Income Group
+$$[30k_{SGD}, 40k_{SGD}]/y \approx [2.5k_{SGD}, 3.3k_{SGD}]/m$$
+It has always been the biggest group of taxpayers and it'll most likely stay that way for years to come.
+
+### Declining Income Groups
+*barring the very small income groups in which we will discuss later*
+$$[20k_{SGD}, 25k_{SGD}]/y \approx [1.7k_{SGD}, 2.1k_{SGD}]/m$$
+$$[25k_{SGD}, 30k_{SGD}]/y \approx [2.1k_{SGD}, 2.5k_{SGD}]/m$$
+
+Both of the income groups' growth seems to be stamped down in the recent years:
+
+- $[20k_{SGD}, 25k_{SGD}]/y$ growth goes into the negative in 2014, with a 4.4% rise in 2016
+- $[25k_{SGD}, 30k_{SGD}]/y$ growth goes into the negative in 2015
+
+### Global Financial Crisis of (around) 2008
+An interesting observation is this would be how Singapore is affected during the the [Financial Crisis](http://eresources.nlb.gov.sg/history/events/3cacf256-82cc-4776-b7f8-83757723b502).
+
+- Most Income Groups stagnated around that period or declined except those $< 30k_{SGD}/y$ in which increased in population readily.
+
+## Forecasting
+
+### Future Largest Income Group
+
+- Between this and its following group, $[40k_{SGD}, 50k_{SGD}]/y$, the gap has **widened**, especially in the past few years.
+- The two groups $[20k_{SGD}, 25k_{SGD}]/y + [25k_{SGD}, 30k_{SGD}]/y$ has decreased in population, shifting up in income groups, likely to $[30k_{SGD}, 40k_{SGD}]$
+
 
