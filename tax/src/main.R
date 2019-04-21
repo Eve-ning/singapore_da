@@ -75,12 +75,15 @@ if (!file.exists("img/dist.gif")) {
     geom_bar(stat = "identity") +
     theme(axis.text.x = element_text(angle = 90)) +
     xlab("Income Group") +
-    geom_text(aes(label = percent(dist/100)), nudge_y = 1) +
-    ggtitle("Income Group Distribution after time")
+    ylab("Distribution of Taxpayers") +
+    ggtitle("Income Group Distribution from 2004 to 2017") +
+    geom_text(aes(label = percent(dist/100)), nudge_y = 1) 
+
   p
   anim <- p +
     transition_time(time = year_of_assessment) +
-    labs(title = "Year: {frame_time}")
+    labs(title = "Year: {frame_time}",
+         subtitle = "Income Group Distribution from 2004 to 2017")
   
   animate(anim, fps = 15, duration = 12)
   anim_save("img/dist.gif")
