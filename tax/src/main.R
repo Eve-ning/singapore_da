@@ -67,20 +67,49 @@ ggsave("tax_plot.png",width = 23, height = 15, dpi = 100, units="cm")
   require(plyr)
   require(reshape2)
   require(scales)
+  require(gridExtra)
+  require(gganimate)
   
+  # Calculate Growth
   tax.resident.grw <- ddply(tax.resident,"assessed_income_group",transform,
                         growth=c(NA, exp(diff(log(number_of_taxpayers)))-1))
+  
+  # Select important columns only
   tax.resident.grw %<>% 
     select(year_of_assessment,
            assessed_income_group,
            growth)
   
+  # Replace NA with 0
   tax.resident.grw[is.na(tax.resident.grw)] <- 0 
   
+  # Create animated growth after time gif
+  {
+    p <- ggplot(tax.resident.grw) + # Create bar graph
+      aes(x=assessed_income_group, y=growth) +
+      geom_bar(stat = "identity") +
+      xlab("Income Group") +
+      ggtitle("% Change in Growth after time") +
+      coord_flip()
+  
+    anim <- p +
+      transition_time(time = year_of_assessment) +
+      labs(title = "Year: {frame_time}")
+    
+    animate(anim, fps = 20, duration = 15)
+    anim_save("growth.gif")
+  }
+  
+  # Unstack on Year
   tax.resident.grw %<>% 
     dcast(formula = assessed_income_group ~ year_of_assessment, value.var = "growth")
   
+  # Convert to percent and round
   tax.resident.grw %<>% 
     mutate_if(is.numeric, round, digits = 3) %>% 
     mutate_if(is.numeric, percent, trim = T)
+
 }
+
+# Save Environment
+save.image("tax.RData")
