@@ -117,6 +117,8 @@ An interesting observation is this would be how Singapore is affected during the
 
 ### Future Largest Income Group
 
+I foresee that the dominating future income group would fall under $[30k_{SGD}, 40k_{SGD}]/y$, falling slightly below 1/5 of the population. A few reasons for the prediction:
+
 - Between this and its following group, $[40k_{SGD}, 50k_{SGD}]/y$, the gap has **widened**, especially in the past few years.
 - The two groups $[20k_{SGD}, 25k_{SGD}]/y + [25k_{SGD}, 30k_{SGD}]/y$ has decreased in population, shifting up in income groups, likely to $[30k_{SGD}, 40k_{SGD}]$
 
