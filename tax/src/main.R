@@ -71,7 +71,7 @@ tax.resident %<>%
 # Create distribution animation
 if (!file.exists("img/dist.gif")) { 
   p <- ggplot(tax.resident) + # Create bar graph
-    aes(x = sub(" .*", "", assessed_income_group), y=dist) +
+    aes(x = assessed_income_group, y=dist) +
     geom_bar(stat = "identity") +
     theme(axis.text.x = element_text(angle = 90)) +
     xlab("Income Group") +
