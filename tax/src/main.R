@@ -3,6 +3,7 @@ require(stringr)
 require(magrittr)
 require(directlabels)
 require(grid)
+require(scales)
 
 # Load in data
 tax.path <- "C:\\Users\\johnc\\Documents\\Projects\\Data\\singapore\\tax\\main.csv"
@@ -33,83 +34,90 @@ tax <- read.csv(tax.path, header = T, sep = ',', stringsAsFactors = T)
 # Drop all non-Tax residents
 tax.resident = subset(tax, tax$resident_type == "Tax Resident") 
 
+#### STATIC ANALYSIS
+
 # Draw Plot
-{
-ggplot(tax.resident,
-       aes(x = factor(year_of_assessment), # We use factor to force all x labels
-           number_of_taxpayers,
-           colour = assessed_income_group) # Color by Levels
-       ) +
-  geom_point() + # Add Points
-  geom_line(aes(group = assessed_income_group)) + # Add Lines
-  ylab("Number of Tax Payers (*1000)") + # Y Label
-  xlab("Year of Assessment") + # X Label
-  ggtitle(label = "Number of Taxpayers By Income Groups",
-          subtitle = "From \"Taxable Individuals by Assessable Income Group, Annual\", data.gov.sg") +
-  scale_y_continuous(labels = function(y)y/1000.0) + # Scale Y Axis by /1000
-  scale_x_discrete(expand = expand_scale(add = c(0.3,5))) + 
-  theme(legend.position = "none", # Remove Legends
-        plot.margin = unit(c(1,2,1,2),"cm")
-        ) + 
-  geom_dl( # Draw Labels
-    aes(label = sprintf("$%s/y", assessed_income_group)),
-    method = list(last.bumpup,
-                  cex = 1,
-                  dl.trans(x=x+0.2)
-                  )) 
+if (!file.exists("img/tax_plot.png")){
+  ggplot(tax.resident,
+         aes(x = factor(year_of_assessment), # We use factor to force all x labels
+             number_of_taxpayers,
+             colour = assessed_income_group) # Color by Levels
+         ) +
+    geom_point() + # Add Points
+    geom_line(aes(group = assessed_income_group)) + # Add Lines
+    ylab("Number of Tax Payers (*1000)") + # Y Label
+    xlab("Year of Assessment") + # X Label
+    ggtitle(label = "Number of Taxpayers By Income Groups",
+            subtitle = "From \"Taxable Individuals by Assessable Income Group, Annual\", data.gov.sg") +
+    scale_y_continuous(labels = function(y)y/1000.0) + # Scale Y Axis by /1000
+    scale_x_discrete(expand = expand_scale(add = c(0.3,5))) + 
+    theme(legend.position = "none", # Remove Legends
+          plot.margin = unit(c(1,2,1,2),"cm")
+          ) + 
+    geom_dl( # Draw Labels
+      aes(label = sprintf("$%s/y", assessed_income_group)),
+      method = list(last.bumpup,
+                    cex = 1,
+                    dl.trans(x=x+0.2)
+                    )) 
+  # Save Plot
+  ggsave("img/tax_plot.png",width = 23, height = 15, dpi = 100, units="cm")
 }
 
-# Save Plot
-ggsave("tax_plot.png",width = 23, height = 15, dpi = 100, units="cm")
+tax.resident %<>% 
+  group_by(year_of_assessment) %>% 
+  mutate(dist = round(number_of_taxpayers / sum(number_of_taxpayers) * 100, digits = 2))
+
+# Create distribution animation
+if (!file.exists("img/dist.gif")) { 
+  p <- ggplot(tax.resident) + # Create bar graph
+    aes(x = sub(" .*", "", assessed_income_group), y=dist) +
+    geom_bar(stat = "identity") +
+    theme(axis.text.x = element_text(angle = 90)) +
+    xlab("Income Group") +
+    geom_text(aes(label = percent(dist/100)), nudge_y = 1) +
+    ggtitle("Income Group Distribution after time")
+  p
+  anim <- p +
+    transition_time(time = year_of_assessment) +
+    labs(title = "Year: {frame_time}")
+  
+  animate(anim, fps = 15, duration = 12)
+  anim_save("img/dist.gif")
+}
+
+#### GROWTH ANALYSIS
+
+# Calculate Growth
+tax.resident.grw <- ddply(tax.resident,"assessed_income_group",transform,
+                          growth=c(NA, exp(diff(log(number_of_taxpayers)))-1))
+
+# Select important columns only
+tax.resident.grw %<>% 
+  select(year_of_assessment,
+         assessed_income_group,
+         growth)
+
+# Replace NA with 0
+tax.resident.grw[is.na(tax.resident.grw)] <- 0 
+
 
 # Make Wide Table
 {
   require(plyr)
-  require(reshape2)
-  require(scales)
-  require(gridExtra)
-  require(gganimate)
-  
-  # Calculate Growth
-  tax.resident.grw <- ddply(tax.resident,"assessed_income_group",transform,
-                        growth=c(NA, exp(diff(log(number_of_taxpayers)))-1))
-  
-  # Select important columns only
-  tax.resident.grw %<>% 
-    select(year_of_assessment,
-           assessed_income_group,
-           growth)
-  
-  # Replace NA with 0
-  tax.resident.grw[is.na(tax.resident.grw)] <- 0 
-  
-  # Create animated growth after time gif
-  {
-    p <- ggplot(tax.resident.grw) + # Create bar graph
-      aes(x=assessed_income_group, y=growth) +
-      geom_bar(stat = "identity") +
-      xlab("Income Group") +
-      ggtitle("% Change in Growth after time") +
-      coord_flip()
-  
-    anim <- p +
-      transition_time(time = year_of_assessment) +
-      labs(title = "Year: {frame_time}")
-    
-    animate(anim, fps = 20, duration = 15)
-    anim_save("growth.gif")
-  }
+  require(reshape2) # dcast
+
   
   # Unstack on Year
-  tax.resident.grw %<>% 
+  tax.resident.grw.wide <- tax.resident.grw %>%  
     dcast(formula = assessed_income_group ~ year_of_assessment, value.var = "growth")
   
   # Convert to percent and round
-  tax.resident.grw %<>% 
+  tax.resident.grw.wide %<>% 
     mutate_if(is.numeric, round, digits = 3) %>% 
     mutate_if(is.numeric, percent, trim = T)
-
 }
 
 # Save Environment
+# RMD Requires data from Wide Table
 save.image("tax.RData")
