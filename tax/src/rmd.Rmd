@@ -2,7 +2,10 @@
 title: "process"
 author: "eve-ning"
 date: "4/20/2019"
-output: html_document
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
