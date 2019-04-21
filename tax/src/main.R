@@ -44,19 +44,21 @@ ggplot(tax.resident,
   geom_line(aes(group = assessed_income_group)) + # Add Lines
   ylab("Number of Tax Payers (*1000)") + # Y Label
   xlab("Year of Assessment") + # X Label
-  ggtitle(label = "Taxable Individuals by Assessable Income Group, Annual",
-          subtitle = "By Income Groups") +
+  ggtitle(label = "Number of Taxpayers By Income Groups",
+          subtitle = "From \"Taxable Individuals by Assessable Income Group, Annual\", data.gov.sg") +
   scale_y_continuous(labels = function(y)y/1000.0) + # Scale Y Axis by /1000
-  scale_x_discrete(expand = expand_scale(add = c(0.3,2))) + 
+  scale_x_discrete(expand = expand_scale(add = c(0.3,5))) + 
   theme(legend.position = "none", # Remove Legends
         plot.margin = unit(c(1,2,1,2),"cm")
         ) + 
   geom_dl( # Draw Labels
-    aes(label = sprintf("$%s/y", comma(assessed_income_group))),
+    aes(label = sprintf("$%s/y", assessed_income_group)),
     method = list(last.bumpup,
-                  cex = 1.1,
+                  cex = 1,
                   dl.trans(x=x+0.2)
                   )) 
 
+# Save Plot
+ggsave("tax_plot.png",width = 23, height = 15, dpi = 200, units="cm")
 
             
