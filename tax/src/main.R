@@ -8,7 +8,6 @@ require(grid)
 tax.path <- "C:\\Users\\johnc\\Documents\\Projects\\Data\\singapore\\tax\\main.csv"
 tax <- read.csv(tax.path, header = T, sep = ',', stringsAsFactors = T)
 
-
 # Sort Levels correctly
 {
   tax.levels <- data.frame(levels(tax$assessed_income_group)) # Access Levels
@@ -35,6 +34,7 @@ tax <- read.csv(tax.path, header = T, sep = ',', stringsAsFactors = T)
 tax.resident = subset(tax, tax$resident_type == "Tax Resident") 
 
 # Draw Plot
+{
 ggplot(tax.resident,
        aes(x = factor(year_of_assessment), # We use factor to force all x labels
            number_of_taxpayers,
@@ -57,8 +57,30 @@ ggplot(tax.resident,
                   cex = 1,
                   dl.trans(x=x+0.2)
                   )) 
+}
 
 # Save Plot
-ggsave("tax_plot.png",width = 23, height = 15, dpi = 200, units="cm")
+ggsave("tax_plot.png",width = 23, height = 15, dpi = 100, units="cm")
 
-            
+# Make Wide Table
+{
+  require(plyr)
+  require(reshape2)
+  require(scales)
+  
+  tax.resident.grw <- ddply(tax.resident,"assessed_income_group",transform,
+                        growth=c(NA, exp(diff(log(number_of_taxpayers)))-1))
+  tax.resident.grw %<>% 
+    select(year_of_assessment,
+           assessed_income_group,
+           growth)
+  
+  tax.resident.grw[is.na(tax.resident.grw)] <- 0 
+  
+  tax.resident.grw %<>% 
+    dcast(formula = assessed_income_group ~ year_of_assessment, value.var = "growth")
+  
+  tax.resident.grw %<>% 
+    mutate_if(is.numeric, round, digits = 3) %>% 
+    mutate_if(is.numeric, percent, trim = T)
+}
