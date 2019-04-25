@@ -62,10 +62,7 @@ enrolment.raw <- read.csv(enrolment.path, header = T, sep = ',', stringsAsFactor
       aes(label = sprintf("%sK", round(persons/1000, digits = 0))),
       method = list(cex =0.7,
                     dl.trans(x=x+0.2, y=y-0.2))
-    ) +
-    theme(legend.position = "none", # Remove Legends
-          plot.margin = unit(c(1,2,1,2),"cm")
-    ) 
+    )
   
   ggsave("../img/enrolment_sum.png",
          plot = enrolment.sum.p,
@@ -97,7 +94,7 @@ enrolment.raw <- read.csv(enrolment.path, header = T, sep = ',', stringsAsFactor
     geom_dl( # Draw Labels
       aes(label = course),
       method = list(last.bumpup,
-                    cex = 1,
+                    cex = 0.8,
                     dl.trans(x=x+0.2)
       )) +
     theme(legend.position = "none", # Remove Legends
@@ -123,7 +120,7 @@ enrolment.raw <- read.csv(enrolment.path, header = T, sep = ',', stringsAsFactor
     geom_dl( # Draw Labels
       aes(label = course),
       method = list(last.bumpup,
-                    cex = 1,
+                    cex = 0.8,
                     dl.trans(x=x+0.2)
       )) +
     theme(legend.position = "none", # Remove Legends
