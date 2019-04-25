@@ -21,7 +21,7 @@ enrolment.raw <- read.csv(enrolment.path, header = T, sep = ',', stringsAsFactor
   
   # Subtract off the numeric columns (4 - 6)
   enrolment.M <- enrolment.MF[,4:6] - enrolment.F[,4:6]
-  
+    
   # Column Bind back the non-numeric columns (1 - 3)
   
   # We bind via .F instead of binding to .F 
@@ -34,20 +34,21 @@ enrolment.raw <- read.csv(enrolment.path, header = T, sep = ',', stringsAsFactor
   # Join back .M and .F
   enrolment <- enrolment.M %>% 
     rbind(enrolment.F)
-}
-
-# As an additional step to fixing the dataset,
-# we melt the numeric columns to their respective type
-{
-  enrolment %<>% 
+  
+  # Clear unused data
+  rm(enrolment.MF, enrolment.M, enrolment.F)
+  
+  # As an additional step to fixing the dataset,
+  # we melt the numeric columns to their respective type
+  enrolment.melt -> enrolment %>% 
     melt(value.name = "persons",
          variable.name = "type",
          id.vars = 1:3)
 }
 
-# We can find out the trend of general intake, enrolment and graduates after time
+# enrolment.sum
 {
-  enrolment.sum <- enrolment %>%
+  enrolment.sum <- enrolment.melt %>%
     group_by(year, type) %>% 
     summarise(persons = sum(persons))
   
@@ -67,8 +68,10 @@ enrolment.raw <- read.csv(enrolment.path, header = T, sep = ',', stringsAsFactor
     group_by(year, type) %>% 
     summarise(persons = sum(persons))
   
-  ggsave()
-  
+  ggsave("../img/enrolment_sum.png")
+  rm(enrolment.sum)
+}
+
   
 }
 
