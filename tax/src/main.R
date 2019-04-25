@@ -4,9 +4,11 @@ require(magrittr)
 require(directlabels)
 require(grid)
 require(scales)
+require(plyr)
+require(reshape2) # dcast
 
 # Load in data
-tax.path <- "C:\\Users\\johnc\\Documents\\Projects\\Data\\singapore\\tax\\main.csv"
+tax.path <- "C:\\Users\\johnc\\Documents\\Projects\\Data\\singapore\\tax\\2017\\main.csv"
 tax <- read.csv(tax.path, header = T, sep = ',', stringsAsFactors = T)
 
 # Sort Levels correctly
@@ -107,10 +109,6 @@ tax.resident.grw[is.na(tax.resident.grw)] <- 0
 
 # Make Wide Table
 {
-  require(plyr)
-  require(reshape2) # dcast
-
-  
   # Unstack on Year
   tax.resident.grw.wide <- tax.resident.grw %>%  
     dcast(formula = assessed_income_group ~ year_of_assessment, value.var = "growth")
