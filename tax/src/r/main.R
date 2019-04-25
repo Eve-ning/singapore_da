@@ -39,7 +39,7 @@ tax.resident = subset(tax, tax$resident_type == "Tax Resident")
 #### STATIC ANALYSIS
 
 # Draw Plot
-if (!file.exists("img/tax_plot.png")){
+if (!file.exists("../img/tax_plot.png")){
   ggplot(tax.resident,
          aes(x = factor(year_of_assessment), # We use factor to force all x labels
              number_of_taxpayers,
@@ -63,7 +63,7 @@ if (!file.exists("img/tax_plot.png")){
                     dl.trans(x=x+0.2)
                     )) 
   # Save Plot
-  ggsave("img/tax_plot.png",width = 23, height = 15, dpi = 100, units="cm")
+  ggsave("../img/tax_plot.png",width = 23, height = 15, dpi = 100, units="cm")
 }
 
 tax.resident %<>% 
@@ -71,7 +71,7 @@ tax.resident %<>%
   mutate(dist = round(number_of_taxpayers / sum(number_of_taxpayers) * 100, digits = 2))
 
 # Create distribution animation
-if (!file.exists("img/dist.gif")) { 
+if (!file.exists("../img/dist.gif")) { 
   p <- ggplot(tax.resident) + # Create bar graph
     aes(x = assessed_income_group, y=dist) +
     geom_bar(stat = "identity") +
@@ -88,7 +88,7 @@ if (!file.exists("img/dist.gif")) {
          subtitle = "Income Group Distribution from 2004 to 2017")
   
   animate(anim, fps = 15, duration = 12)
-  anim_save("img/dist.gif")
+  anim_save("../img/dist.gif")
 }
 
 #### GROWTH ANALYSIS

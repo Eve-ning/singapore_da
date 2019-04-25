@@ -10,7 +10,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-load("tax.RData")
+load("../tax.RData")
 ```
 
 # Taxation in Singapore
@@ -84,14 +84,14 @@ We can look at the surface trends of this data provided, such as:
 Taxed amounts aside, we can analyse how many people are in specific **income groups** by looking at the data.
 
 We will simply drop these data into a ggplot where we group them by their income groups.
-![tax_plot](img/tax_plot.png)
+![tax_plot](../../img/tax_plot.png)
 
 
 ```{r}
 knitr::kable(tax.resident.grw.wide)
 ```
 
-![growth_gif](img/dist.gif)
+![growth_gif](../../img/dist.gif)
 
 ## Observations
 
