@@ -62,7 +62,10 @@ enrolment.raw <- read.csv(enrolment.path, header = T, sep = ',', stringsAsFactor
       aes(label = sprintf("%sK", round(persons/1000, digits = 0))),
       method = list(cex =0.7,
                     dl.trans(x=x+0.2, y=y-0.2))
-    )
+    ) +
+    theme(legend.position = "none", # Remove Legends
+          plot.margin = unit(c(1,2,1,2),"cm")
+    ) 
   
   ggsave("../img/enrolment_sum.png",
          plot = enrolment.sum.p,
@@ -96,11 +99,14 @@ enrolment.raw <- read.csv(enrolment.path, header = T, sep = ',', stringsAsFactor
       method = list(last.bumpup,
                     cex = 1,
                     dl.trans(x=x+0.2)
-      )) 
+      )) +
+    theme(legend.position = "none", # Remove Legends
+          plot.margin = unit(c(1,2,1,2),"cm")
+    ) 
   
   ggsave("../img/enrolment_intake.png",
          plot = enrolment.intake.p,
-         width = 23,
+         width = 30,
          height = 15,
          dpi = 150,
          units = "cm")
@@ -119,7 +125,10 @@ enrolment.raw <- read.csv(enrolment.path, header = T, sep = ',', stringsAsFactor
       method = list(last.bumpup,
                     cex = 1,
                     dl.trans(x=x+0.2)
-      )) 
+      )) +
+    theme(legend.position = "none", # Remove Legends
+          plot.margin = unit(c(1,2,1,2),"cm")
+    ) 
   
   ggsave("../img/enrolment_intake_rate.png",
          plot = enrolment.intake_rate.p,
@@ -127,6 +136,7 @@ enrolment.raw <- read.csv(enrolment.path, header = T, sep = ',', stringsAsFactor
          height = 15,
          dpi = 150,
          units = "cm")
+  
   rm(enrolment.intake_rate.p)
 }
 
