@@ -45,4 +45,31 @@ enrolment.raw <- read.csv(enrolment.path, header = T, sep = ',', stringsAsFactor
          id.vars = 1:3)
 }
 
+# We can find out the trend of general intake, enrolment and graduates after time
+{
+  enrolment.sum <- enrolment %>%
+    group_by(year, type) %>% 
+    summarise(persons = sum(persons))
+  
+  ggplot(enrolment.sum) +
+    aes(x = factor(year),
+        y = persons,
+        colour = type) +
+    geom_point() +
+    geom_line(aes(group = type)) +
+    geom_dl(
+      aes(label = sprintf("%sK", round(persons/1000, digits = 0))),
+      method = list(cex =0.7,
+                    dl.trans(x=x+0.2, y=y-0.2))
+    )
+  
+  enrolment.sum <- enrolment %>%
+    group_by(year, type) %>% 
+    summarise(persons = sum(persons))
+  
+  ggsave()
+  
+  
+}
+
 save.image(file = "enrolment.RData")
