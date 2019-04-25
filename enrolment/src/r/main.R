@@ -32,7 +32,7 @@ enrolment.raw <- read.csv(enrolment.path, header = T, sep = ',', stringsAsFactor
     mutate(sex = "M")
   
   # Join back .M and .F
-  enrolment <- enrolment.M %>% 
+  enrolment.df <- enrolment.M %>% 
     rbind(enrolment.F)
   
   # Clear unused data
@@ -40,7 +40,7 @@ enrolment.raw <- read.csv(enrolment.path, header = T, sep = ',', stringsAsFactor
   
   # As an additional step to fixing the dataset,
   # we melt the numeric columns to their respective type
-  enrolment.melt -> enrolment %>% 
+  enrolment.melt <- enrolment.df %>% 
     melt(value.name = "persons",
          variable.name = "type",
          id.vars = 1:3)
@@ -52,7 +52,7 @@ enrolment.raw <- read.csv(enrolment.path, header = T, sep = ',', stringsAsFactor
     group_by(year, type) %>% 
     summarise(persons = sum(persons))
   
-  ggplot(enrolment.sum) +
+  enrolment.sum.p <- ggplot(enrolment.sum) +
     aes(x = factor(year),
         y = persons,
         colour = type) +
@@ -64,15 +64,70 @@ enrolment.raw <- read.csv(enrolment.path, header = T, sep = ',', stringsAsFactor
                     dl.trans(x=x+0.2, y=y-0.2))
     )
   
-  enrolment.sum <- enrolment %>%
-    group_by(year, type) %>% 
-    summarise(persons = sum(persons))
-  
-  ggsave("../img/enrolment_sum.png")
-  rm(enrolment.sum)
+  ggsave("../img/enrolment_sum.png",
+         plot = enrolment.sum.p,
+         width = 23,
+         height = 15,
+         dpi = 150,
+         units = "cm")
+  rm(enrolment.sum, enrolment.sum.p)
 }
 
+# enrolment.intake
+{
+  enrolment.intake <- enrolment.df
+  enrolment.intake <-
+    aggregate(cbind(intake, enrolment, graduates) ~ year + course, data = enrolment.intake, sum)
+  enrolment.intake$intake_rate = enrolment.intake$intake / enrolment.intake$enrolment
   
+  # Note that graduate rate is not viable as the intake population
+  # is not the same as the graduate population in the same year.
+  # enrolment.intake$graduate_rate = enrolment.intake$graduates / enrolment.intake$intake
+  
+  enrolment.intake.p <- ggplot(enrolment.intake) +
+    aes(x = year,
+        y = intake,
+        colour = course) +
+    geom_point() +
+    geom_line(aes(group = course)) +
+    scale_x_discrete(expand = expand_scale(add = c(0.3,5))) +
+    geom_dl( # Draw Labels
+      aes(label = course),
+      method = list(last.bumpup,
+                    cex = 1,
+                    dl.trans(x=x+0.2)
+      )) 
+  
+  ggsave("../img/enrolment_intake.png",
+         plot = enrolment.intake.p,
+         width = 23,
+         height = 15,
+         dpi = 150,
+         units = "cm")
+  
+  rm(enrolment.intake.p)
+  
+  enrolment.intake_rate.p <- ggplot(enrolment.intake) +
+    aes(x = year,
+        y = intake_rate,
+        colour = course) +
+    geom_point() +
+    geom_line(aes(group = course)) +
+    scale_x_discrete(expand = expand_scale(add = c(0.3,5))) +
+    geom_dl( # Draw Labels
+      aes(label = course),
+      method = list(last.bumpup,
+                    cex = 1,
+                    dl.trans(x=x+0.2)
+      )) 
+  
+  ggsave("../img/enrolment_intake_rate.png",
+         plot = enrolment.intake_rate.p,
+         width = 23,
+         height = 15,
+         dpi = 150,
+         units = "cm")
+  rm(enrolment.intake_rate.p)
 }
 
 save.image(file = "enrolment.RData")
