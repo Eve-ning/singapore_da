@@ -2,6 +2,6 @@
 * text=auto
 
 * linguist-vendored
-*.r linguist-vendored=false
-*.rmd linguist-vendored=false
+*.R linguist-vendored=false
+*.Rmd linguist-vendored=R
 *.py linguist-vendored=false
