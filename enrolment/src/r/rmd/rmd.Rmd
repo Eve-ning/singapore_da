@@ -1,12 +1,115 @@
 ---
-title: "rmd"
+title: "enrolment"
 author: "eve-ning"
-date: "4/24/2019"
-output: html_document
+date: "4/25/2019"
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
 ```
+<!-- load("../workspace.RData") --> 
+
+# Title
+
+[Source](https://data.gov.sg/dataset/universities-intake-enrolment-and-graduates-by-course)
+
+Source Notes:
+
+- Universities refers to
+  - **NUS** National University of Singapore
+  - **NTU** Nanyang Technological University
+  - **SMU** Singapore Management University
+  - **SIT** Singapore Institute of Technology
+  - **SUTD** Singapore University of Technology & Design
+  - **SUSS** Singapore University of Social Sciences.
+- Intake, enrolment and graduates figures refer to full-time first degree only.
+- Intake figures include students who entered directly into second and subsequent years.
+- Courses are classified according to course content of the highest weighting.
+
+## Columns
+
+- **Year**: Year of dataset collected.
+- **Sex**: Sex of group
+- **Course**: Course the group of students attended
+- **Intake**: Number of students accepted in to the course
+- **Enrolment**: Number of students applied to the course
+- **Graduates**: Number of students finishing the course
+
+### Course
+
+There are a myraid of courses provided by universities, however, this dataset narrows
+it down to a few categories only.
+
+This means that courses, for example, **Electrical Engineering** will fall under
+**Engineering Sciences**, which is a more encompassing category.
+
+### Intake vs. Enrolment
+
+- **Intake** refers to students accepted.
+- **Enrolment** refers to students applied.
+
+Hence,
+$$\frac{intake}{enrolment} = intake_{rate}$$ 
+
+### Graduates
+
+To clarify, this is the graduates for the particular year, which is independent of the
+intake in the same year.
+
+Hence it will not be possible to calculate graduation rate directly from this dataset:
+$$\frac{graduates}{intake} \neq graduate_{rate}$$
+
+## Goals
+
+Goals
+
+# Results for Goal 1
+
+Results
+
+## Observations
+
+Summary
+
+### Observation
+
+Observation
+
+## Forecasting
+
+Summary
+
+### Forecast
+
+Forecast
+
+# Results for Goal n
+
+Results
+
+## Observations
+
+Summary
+
+### Observation
+
+Observation
+
+## Forecasting
+
+Summary
+
+### Forecast
+
+Forecast
 
 
+
+# Conclusion
+
+Conclusion
