@@ -1,0 +1,81 @@
+---
+title: "rmd-template"
+author: "eve-ning"
+date: "date"
+output:
+  html_document: default
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+<!-- load("../workspace.RData") --> 
+
+# Title
+
+[Source](??)
+
+Source Notes:
+
+- <src_notes>
+
+## Columns
+
+- **col_name**: desc
+
+### Column
+
+Column Description
+
+## Goals
+
+Goals
+
+# Results for Goal 1
+
+Results
+
+## Observations
+
+Summary
+
+### Observation
+
+Observation
+
+## Forecasting
+
+Summary
+
+### Forecast
+
+Forecast
+
+# Results for Goal n
+
+Results
+
+## Observations
+
+Summary
+
+### Observation
+
+Observation
+
+## Forecasting
+
+Summary
+
+### Forecast
+
+Forecast
+
+
+
+# Conclusion
+
+Conclusion
