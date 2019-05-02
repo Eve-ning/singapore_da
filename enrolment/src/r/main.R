@@ -45,6 +45,12 @@ enrolment.raw <- read.csv(enrolment.path, header = T, sep = ',', stringsAsFactor
          variable.name = "type",
          id.vars = 1:3)
 }
+ 
+# --- Some useful lists we will calculate globally
+
+enrolment.courses = unique(enrolment.df$course)
+
+# ---
 
 # enrolment.sum
 {
@@ -120,6 +126,39 @@ enrolment.raw <- read.csv(enrolment.path, header = T, sep = ',', stringsAsFactor
 }
 {
   enrolment.intake$intake_rate <- enrolment.intake$intake / enrolment.intake$enrolment
+  enrolment.intake_rate = enrolment.intake[c("year", "course", "intake_rate")]
+  for (crs in enrolment.courses){
+    
+    enrolment.intake.crs <- subset(enrolment.intake_rate,
+                                   course == crs)
+    enrolment.intake.crs[is.na(enrolment.intake.crs)] <- 0
+    
+    enrolment.intake.crs.p <- ggplot(enrolment.intake.crs) +
+      aes(x = year, 
+          y = intake_rate) +
+      geom_area(aes(group = course),
+                alpha = 0) + 
+      stat_smooth(
+        geom = 'area',
+        method = 'loess',
+        span = 0.25,
+        fill = 'red',
+        alpha = 0.5) +
+      scale_x_continuous(breaks = pretty_breaks()) +
+      ggtitle(crs) +
+      ylim(c(0, 0.7)) +
+      labs(y = "Intake Rate",
+           x = "Year")
+    
+    ggsave(paste("../img/frags/intake_rate/", crs, ".png"),
+           plot = enrolment.intake.crs.p,
+           width = 23,
+           height = 10,
+           dpi = 150,
+           units = "cm")
+    rm(enrolment.intake.crs.p)
+  }
+  
 }
 
 save.image(file = "enrolment.RData")
