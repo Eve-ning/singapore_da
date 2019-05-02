@@ -53,7 +53,7 @@ enrolment.courses = unique(enrolment.df$course)
 # ---
 
 # enrolment.sum
-{
+fn.sum <- function(){
   enrolment.sum <- enrolment.melt %>%
     group_by(year, type) %>% 
     summarise(persons = sum(persons))
@@ -78,13 +78,12 @@ enrolment.courses = unique(enrolment.df$course)
          height = 15,
          dpi = 150,
          units = "cm")
-  rm(enrolment.sum, enrolment.sum.p)
 }
 
 # enrolment.intake
-{
+fn.intake <- function(){
   # We need to combine both M and F
-  enrolment.intake <-
+  enrolment.intake <<-
     aggregate(cbind(intake, enrolment, graduates) ~ year + course, data = enrolment.df, sum)
 
   # We will need to filter
@@ -124,11 +123,10 @@ enrolment.courses = unique(enrolment.df$course)
          height = 15,
          dpi = 150,
          units = "cm")
-  
-  rm(enrolment.intake.p)
-  rm(enrolment.intake.fil)
 }
-{
+
+# enrolment.intake.rate
+fn.intake.rate <- function(){
   enrolment.intake$intake_rate <- enrolment.intake$intake / enrolment.intake$enrolment
   enrolment.intake_rate = enrolment.intake[c("year", "course", "intake_rate")]
   for (crs in enrolment.courses){
@@ -163,9 +161,7 @@ enrolment.courses = unique(enrolment.df$course)
            height = 10,
            dpi = 150,
            units = "cm")
-    rm(enrolment.intake.crs.p)
   }
-  
 }
 
 save.image(file = "enrolment.RData")
