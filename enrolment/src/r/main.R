@@ -120,35 +120,6 @@ enrolment.raw <- read.csv(enrolment.path, header = T, sep = ',', stringsAsFactor
 }
 {
   enrolment.intake$intake_rate <- enrolment.intake$intake / enrolment.intake$enrolment
-  enrolment.intake.fil <- subset(enrolment.intake,
-                                 year %in% head(sort(unique(enrolment.intake$year),
-                                                     decreasing = T),
-                                                n = 5))
-  
-  enrolment.intake_rate.p <- ggplot(enrolment.intake.fil) +
-    aes(x = factor(year),
-        y = intake_rate,
-        colour = course) +
-    geom_smooth(aes(group = course), method = lm, se = F) +
-    scale_x_discrete(expand = expand_scale(add = c(0.3,2))) +
-    geom_dl( # Draw Labels
-      aes(label = course),
-      method = list(last.bumpup,
-                    cex = 0.8,
-                    dl.trans(x=x+0.2)
-      )) +
-    theme(legend.position = "none", # Remove Legends
-          plot.margin = unit(c(1,2,1,2),"cm")
-    ) 
-  
-  ggsave("../img/enrolment_intake_rate.png",
-         plot = enrolment.intake_rate.p,
-         width = 23,
-         height = 15,
-         dpi = 150,
-         units = "cm")
-  
-  rm(enrolment.intake_rate.p)
 }
 
 save.image(file = "enrolment.RData")
