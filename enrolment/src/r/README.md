@@ -5,6 +5,4 @@
 
 ![Enrolment Sum](../img/enrolment_sum.png)
 ![Intake](../img/enrolment_intake.png)
-
-### Work in Progress Plots
-![Intake Rate](../img/enrolment_intake_rate.png)
+![Intake Rate](../img/frags/intake_rate/stitched.jpg)
