@@ -68,7 +68,9 @@ enrolment.courses = unique(enrolment.df$course)
       aes(label = sprintf("%sK", round(persons/1000, digits = 0))),
       method = list(cex =0.7,
                     dl.trans(x=x+0.2, y=y-0.2))
-    )
+    ) +
+    labs(y = "Students",
+         x = "Year")
   
   ggsave("../img/enrolment_sum.png",
          plot = enrolment.sum.p,
@@ -98,7 +100,7 @@ enrolment.courses = unique(enrolment.df$course)
                                  course %in% enrolment.intake.fil$course)
   
   enrolment.intake.p <- ggplot(enrolment.intake.fil) +
-    aes(x = year,
+    aes(x = factor(year),
         y = intake,
         colour = course) +
     geom_point() +
@@ -112,7 +114,9 @@ enrolment.courses = unique(enrolment.df$course)
       )) +
     theme(legend.position = "none", # Remove Legends
           plot.margin = unit(c(1,2,1,2),"cm")
-    ) 
+    ) +
+    labs(y = "Intake",
+         x = "Year")
   
   ggsave("../img/enrolment_intake.png",
          plot = enrolment.intake.p,
@@ -148,9 +152,12 @@ enrolment.courses = unique(enrolment.df$course)
       ggtitle(crs) +
       ylim(c(0, 0.7)) +
       labs(y = "Intake Rate",
-           x = "Year")
+           x = "Year") +
+      theme_minimal()
     
-    ggsave(paste("../img/frags/intake_rate/", crs, ".png"),
+    enrolment.intake.crs.p
+    
+    ggsave(paste("../img/frags/intake_rate/", crs, ".png", sep = ""),
            plot = enrolment.intake.crs.p,
            width = 23,
            height = 10,
