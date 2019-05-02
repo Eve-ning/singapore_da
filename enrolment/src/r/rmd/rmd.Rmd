@@ -66,7 +66,10 @@ $$\frac{graduates}{intake} \neq graduate_{rate}$$
 
 ## Goals
 
-Goals
+- It's pretty obvious that intake, enrolment, graduates will increase, but will there be some spikes in the graph that may prove otherwise between specific years?
+- What is the intake and enrolment per course?
+- Can we approximate the intake rate for each course? Is this reliable?
+
 
 # Results for Goal 1
 
