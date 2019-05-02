@@ -75,16 +75,23 @@ enrolment.raw <- read.csv(enrolment.path, header = T, sep = ',', stringsAsFactor
 
 # enrolment.intake
 {
-  enrolment.intake <- enrolment.df
+  # We need to combine both M and F
   enrolment.intake <-
-    aggregate(cbind(intake, enrolment, graduates) ~ year + course, data = enrolment.intake, sum)
-  enrolment.intake$intake_rate = enrolment.intake$intake / enrolment.intake$enrolment
+    aggregate(cbind(intake, enrolment, graduates) ~ year + course, data = enrolment.df, sum)
+
+  # We will need to filter
+  enrolment.intake.fil <- 
+    subset(enrolment.intake,
+      # We want to automatically set this as the last year
+      # if there are newer data
+      year == max(year) & 
+      intake > 750 # However, this is best done manually
+      )['course']
   
-  # Note that graduate rate is not viable as the intake population
-  # is not the same as the graduate population in the same year.
-  # enrolment.intake$graduate_rate = enrolment.intake$graduates / enrolment.intake$intake
+  enrolment.intake.fil <- subset(enrolment.intake,
+                                 course %in% enrolment.intake.fil$course)
   
-  enrolment.intake.p <- ggplot(enrolment.intake) +
+  enrolment.intake.p <- ggplot(enrolment.intake.fil) +
     aes(x = year,
         y = intake,
         colour = course) +
@@ -109,14 +116,21 @@ enrolment.raw <- read.csv(enrolment.path, header = T, sep = ',', stringsAsFactor
          units = "cm")
   
   rm(enrolment.intake.p)
+  rm(enrolment.intake.fil)
+}
+{
+  enrolment.intake$intake_rate <- enrolment.intake$intake / enrolment.intake$enrolment
+  enrolment.intake.fil <- subset(enrolment.intake,
+                                 year %in% head(sort(unique(enrolment.intake$year),
+                                                     decreasing = T),
+                                                n = 5))
   
-  enrolment.intake_rate.p <- ggplot(enrolment.intake) +
-    aes(x = year,
+  enrolment.intake_rate.p <- ggplot(enrolment.intake.fil) +
+    aes(x = factor(year),
         y = intake_rate,
         colour = course) +
-    geom_point() +
-    geom_line(aes(group = course)) +
-    scale_x_discrete(expand = expand_scale(add = c(0.3,5))) +
+    geom_smooth(aes(group = course), method = lm, se = F) +
+    scale_x_discrete(expand = expand_scale(add = c(0.3,2))) +
     geom_dl( # Draw Labels
       aes(label = course),
       method = list(last.bumpup,
