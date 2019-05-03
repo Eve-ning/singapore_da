@@ -426,15 +426,17 @@ $(document).ready(function () {
 <h3>Graduates</h3>
 <p>To clarify, this is the graduates for the particular year, which is independent of the intake in the same year.</p>
 <p>Hence it will not be possible to calculate graduation rate directly from this dataset: <span class="math display">\[\frac{graduates}{intake} \neq graduate_{rate}\]</span></p>
+<hr />
 </div>
 </div>
 <div id="goals" class="section level2">
 <h2>Goals</h2>
 <ul>
-<li>It’s pretty obvious that intake, enrolment, graduates will increase, but will there be some spikes in the graph that may prove otherwise between specific years?</li>
+<li>It’s obvious that intake, enrolment, graduates will increase, but will there be some spikes in the graph that may prove otherwise in a certain timeframe?</li>
 <li>What is the intake and enrolment per course?</li>
 <li>Can we approximate the intake rate for each course? Is this reliable?</li>
 </ul>
+<hr />
 </div>
 </div>
 <div id="trends-in-intake-enrolment-and-graduates" class="section level1">
@@ -453,15 +455,25 @@ $(document).ready(function () {
 <p><span class="math display">\[\frac{intake_{2005}}{enrolment_{2005}} = 13/44 \approx 29.5\%\]</span> <span class="math display">\[\frac{intake_{2017}}{enrolment_{2017}} = 19/68 \approx 27.9\%\]</span></p>
 <p>It shows a <span class="math inline">\(1.6\%\)</span> decrease.</p>
 <p><em>Note: We will not compare against graduates, as we discussed before, graduates are dependent on intakes/enrolments that happened years before</em></p>
+<hr />
 </div>
 </div>
 <div id="forecasting" class="section level2">
 <h2>Forecasting</h2>
-<p>With this, can we conclude and forecast that <strong>acceptance rate</strong> will decrease? In a way, yes, however, we skimmed over an important aspect in this analysis.</p>
-<div id="is-this-really-intake-rate" class="section level3">
-<h3>Is this really Intake Rate?</h3>
+<p>With this, can we conclude that <strong>acceptance rate</strong> will decrease? We can, but not in a way that most people would percieve it, we skimmed over an important aspect.</p>
+<div id="intake-rate" class="section level3">
+<h3>Intake Rate</h3>
 <p><strong>enrolment</strong>, this value is dependent on the number of courses each student applied. This is, to a certain degree, dependent on the number of courses the universities offered.</p>
-<p>If more universities are established, more courses are provided, hence there will be more applications to courses. However, the student will only be accepted to one course, or none at all.</p>
+<p>If more universities are established, more courses are provided, hence more applications. However, the student will only be accepted to one or none at all.</p>
+</div>
+<div id="acceptance-rate" class="section level3">
+<h3>Acceptance Rate</h3>
+<p>There are quite a few reasons on why we can’t reliably answer the following question:</p>
+<p><em>“I applied to this course, what are the chances I’ll get offered?”</em></p>
+<p><strong>1. Multiple Applications, One Offer</strong></p>
+<p>This is the most common occurence, student applies to many courses, with a descending order of priority; the school counts it as <strong>multiple enrolments</strong> but sends only <strong>one offer</strong>. Even if the other courses is in agreement to send the offer to the student, they are superceded by the prioritized one.</p>
+<p><strong>2. Multiple Universities</strong></p>
+<p>Even if we consider multiple universities sending offers, the student can only accept one, we are met with the same problem again.</p>
 </div>
 <div id="forecast" class="section level3">
 <h3>Forecast</h3>

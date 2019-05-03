@@ -64,12 +64,15 @@ intake in the same year.
 Hence it will not be possible to calculate graduation rate directly from this dataset:
 $$\frac{graduates}{intake} \neq graduate_{rate}$$
 
+---
+
 ## Goals
 
-- It's pretty obvious that intake, enrolment, graduates will increase, but will there be some spikes in the graph that may prove otherwise between specific years?
+- It's obvious that intake, enrolment, graduates will increase, but will there be some spikes in the graph that may prove otherwise in a certain timeframe?
 - What is the intake and enrolment per course?
 - Can we approximate the intake rate for each course? Is this reliable?
 
+---
 
 # Trends in Intake, Enrolment, and Graduates
 
@@ -92,14 +95,33 @@ It shows a $1.6\%$ decrease.
 
 *Note: We will not compare against graduates, as we discussed before, graduates are dependent on intakes/enrolments that happened years before*
 
+---
+
 ## Forecasting
 
-With this, can we conclude and forecast that **acceptance rate** will decrease? In a way, yes, however, we skimmed over an important aspect in this analysis.
+With this, can we conclude that **acceptance rate** will decrease? We can, but not in a way that most people would percieve it, we skimmed over an important aspect.
 
-### Is this really Intake Rate? 
+### Intake Rate
+
 **enrolment**, this value is dependent on the number of courses each student applied. This is, to a certain degree, dependent on the number of courses the universities offered. 
 
-If more universities are established, more courses are provided, hence there will be more applications to courses. However, the student will only be accepted to one course, or none at all.
+If more universities are established, more courses are provided, hence more applications. However, the student will only be accepted to one or none at all.
+
+### Acceptance Rate
+
+There are quite a few reasons on why we can't reliably answer the following question:
+
+*"I applied to this course, what are the chances I'll get offered?"*
+
+**1. Multiple Applications, One Offer**
+
+This is the most common occurence, student applies to many courses, with a descending order of priority; the school counts it as **multiple enrolments** but sends only **one offer**. Even if the other courses is in agreement to send the offer to the student, they are superceded by the prioritized one.
+
+**2. Multiple Universities**
+
+Even if we consider multiple universities sending offers, the student can only accept one, we are met with the same problem again.
+
+
 
 ### Forecast
 
