@@ -13,7 +13,7 @@ knitr::opts_chunk$set(echo = TRUE)
 load("../tax.RData")
 ```
 
-# Taxation in Singapore
+# Taxable Individuals by Assessable Income Group, Annual
 
 [Source](https://data.gov.sg/dataset/taxable-individuals-by-assessable-income-group-annual)
 
