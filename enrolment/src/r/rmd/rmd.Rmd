@@ -13,8 +13,7 @@ knitr::opts_chunk$set(echo = T)
 load("../enrolment.RData")
 ```
 
-
-# Title
+# Universities - Intake, Enrolment and Graduates by Course
 
 [Source](https://data.gov.sg/dataset/universities-intake-enrolment-and-graduates-by-course)
 
@@ -99,6 +98,8 @@ It shows a $1.6\%$ decrease.
 
 ## Forecasting
 
+### Acceptance Rate
+
 With this, can we conclude that **acceptance rate** will decrease? We can, but not in a way that most people would percieve it, we skimmed over an important aspect.
 
 ### Intake Rate
@@ -107,27 +108,27 @@ With this, can we conclude that **acceptance rate** will decrease? We can, but n
 
 If more universities are established, more courses are provided, hence more applications. However, the student will only be accepted to one or none at all.
 
-### Acceptance Rate
+### Pitfalls in Understanding
 
-There are quite a few reasons on why we can't reliably answer the following question:
+There are quite a few reasons on why we can't reliably answer the following question right now:
 
 *"I applied to this course, what are the chances I'll get offered?"*
 
 **1. Multiple Applications, One Offer**
 
-This is the most common occurence, student applies to many courses, with a descending order of priority; the school counts it as **multiple enrolments** but sends only **one offer**. Even if the other courses is in agreement to send the offer to the student, they are superceded by the prioritized one.
+Most commonly, the student applies to many courses, with an order of priority; the school counts it as **multiple enrolments** but sends only **one offer**. Even if the other courses could've offered, they are superceded by the prioritized one.
 
 **2. Multiple Universities**
 
 Even if we consider multiple universities sending offers, the student can only accept one, we are met with the same problem again.
 
+**3. Details of counting**
 
+Unfortunately, the dataset only tells the big story, but none on the process. **1 & 2** are guesses on how it works, hence I cannot ascertain anything.
 
-### Forecast
+If you are interested into digging into the data, I'd suggest to start with the source, which is listed on the top of the document.
 
-Forecast
-
-# Results for Goal n
+# Intake, Enrolment per Course
 
 Results
 
@@ -147,6 +148,25 @@ Summary
 
 Forecast
 
+# Intake Rate
+
+Results
+
+## Observations
+
+Summary
+
+### Observation
+
+Observation
+
+## Forecasting
+
+Summary
+
+### Forecast
+
+Forecast
 
 
 # Conclusion
