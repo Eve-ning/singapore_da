@@ -9,10 +9,10 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-
+knitr::opts_chunk$set(echo = T)
+load("../enrolment.RData")
 ```
-<!-- load("../workspace.RData") --> 
+
 
 # Title
 
@@ -71,21 +71,35 @@ $$\frac{graduates}{intake} \neq graduate_{rate}$$
 - Can we approximate the intake rate for each course? Is this reliable?
 
 
-# Results for Goal 1
+# Trends in Intake, Enrolment, and Graduates
 
-Results
+![enrolment_sum](../../img/enrolment_sum.png)
 
 ## Observations
 
-Summary
+The obvious trend would be that all of them increase, but are they increasing at a proportional rate?
 
-### Observation
+### Enrolment vs Intake
 
-Observation
+This can be also taken as **acceptance rate** by the university/course.
+
+Let's take a look at the ratio on 2017, compare it against 2005
+
+$$\frac{intake_{2005}}{enrolment_{2005}} = 13/44 \approx 29.5\%$$
+$$\frac{intake_{2017}}{enrolment_{2017}} = 19/68 \approx 27.9\%$$
+
+It shows a $1.6\%$ decrease.
+
+*Note: We will not compare against graduates, as we discussed before, graduates are dependent on intakes/enrolments that happened years before*
 
 ## Forecasting
 
-Summary
+With this, can we conclude and forecast that **acceptance rate** will decrease? In a way, yes, however, we skimmed over an important aspect in this analysis.
+
+### Is this really Intake Rate? 
+**enrolment**, this value is dependent on the number of courses each student applied. This is, to a certain degree, dependent on the number of courses the universities offered. 
+
+If more universities are established, more courses are provided, hence there will be more applications to courses. However, the student will only be accepted to one course, or none at all.
 
 ### Forecast
 
