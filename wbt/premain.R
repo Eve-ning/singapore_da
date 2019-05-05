@@ -6,11 +6,11 @@ wbt$wbt_date = as.Date(wbt$wbt_date)
 # Rename Columns
 wbt %<>%
   rename(
-    date = wbt_date,
-    time = wbt_time,
-    value = wet_bulb_temperature
+    dates = wbt_date,
+    times = wbt_time,
+    values = wet_bulb_temperature
   )
 
-wbt$date.year <- year(wbt$date)
-wbt$date.month <- month(wbt$date)
-wbt$date.day <- day(wbt$date)
+wbt$dates.year <- year(wbt$dates)
+wbt$dates.month <- month(wbt$dates)
+wbt$dates.day <- day(wbt$dates)
