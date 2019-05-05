@@ -1,7 +1,7 @@
 # Preview is where put most source previewing functions
 # In other words, we view the source data visually here
 
-preview <- function(df) {
+create.preview <- function(df) {
   list(
     # This will give the preview for a moving average of 
     # a specified value
