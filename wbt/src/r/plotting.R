@@ -1,3 +1,5 @@
+
+# This generates the period delta plots
 wbt.plot.delta <- function(df,
                            year.start = 1982,
                            year.end = 2019,
@@ -39,6 +41,7 @@ wbt.plot.delta <- function(df,
          limitsize = F)
 }
 
+# This generates the plot comparing the loess to the original dataset
 wbt.plot.loess.comp <- function(df) {
   
   p <- ggplot(df) +
