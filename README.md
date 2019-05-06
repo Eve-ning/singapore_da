@@ -1,7 +1,7 @@
 # Singapore Data Analytics Project
 All my Singapore Data Analytics projects, in a repo
 
-## What is this?
+## What is this
 This is a place where I train myself, in:
 - Data Science
 - Data Analytics
