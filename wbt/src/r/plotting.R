@@ -39,6 +39,8 @@ wbt.plot.delta <- function(df,
          dpi = 150,
          units="cm",
          limitsize = F)
+  
+  
 }
 
 # This generates the plot comparing the loess to the original dataset
