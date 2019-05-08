@@ -2,7 +2,9 @@
 title: "wbt"
 author: "eve-ning"
 date: "5/6/2019"
-output: html_document
+output:
+  html_document:
+    code_folding: "hide"
 ---
 
 ```{r setup, include=FALSE}
@@ -105,29 +107,3 @@ If we can pinpoint out the phase of the sine curve, we can forecast with high ce
 #### Dip Trend
 
 Around every Aug from 2015, we can see a little dip in WBT. We can safely assume this phenomenon will be consistent throughout the future.
-
-# Results for Goal n
-
-Results
-
-## Observations
-
-Summary
-
-### Observation
-
-Observation
-
-## Forecasting
-
-Summary
-
-### Forecast
-
-Forecast
-
-
-
-# Conclusion
-
-Conclusion
