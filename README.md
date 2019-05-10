@@ -26,6 +26,16 @@ Future:
 **As this is a progressive project, the later projects would be better developed**
 **This is sorted latest first**
 
-- [Wet Bulb Temperature, Hourly](projects/wbt/src)
-- [Universities - Intake, Enrolment and Graduates by Course](projects/enrolment/src)
-- [Taxable Individuals by Assessable Income Group, Annual](projects/tax/src)
+### Complete
+
+These projects are complete
+
+### Incomplete
+
+These projects are left incomplete but archived.
+
+Most information in those projects are still as accurate as possible.
+
+- [Wet Bulb Temperature, Hourly](projects/wbt/src) (May 2019)
+- [Universities - Intake, Enrolment and Graduates by Course](projects/enrolment/src) (Apr 2019)
+- [Taxable Individuals by Assessable Income Group, Annual](projects/tax/src) (Apr 2019)
