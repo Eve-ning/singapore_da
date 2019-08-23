@@ -1,0 +1,66 @@
+---
+title: "WBT"
+author: "eve-ning"
+date: "7/15/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Load in the necessary libraries
+```{r, echo=FALSE}
+library(magrittr)
+library(ggplot2)
+library(lubridate)
+```
+
+Load in the WBT file
+```{r}
+file.path <- "../../../../../Data/singapore/wbt/main.csv"
+wbt <- read.csv(file.path, stringsAsFactors = F)
+```
+
+Clean the data so it's easier to process
+```{r}
+wbt %<>%
+  dplyr::mutate(
+    # This converts the dataset to a lubridate object
+    dates = lubridate::ymd_hms(
+      paste0(wbt_date, " ", formatC(wbt_time, width = 2, flag=0), ":00:00")),
+    years = year(dates),
+    months = month(dates),
+    days = day(dates)) %>% 
+  dplyr::select(-wbt_date) %>% 
+  dplyr::rename(hours = wbt_time,
+                wbts = wet_bulb_temperature)
+
+```
+
+We'll process the data here
+
+Let's look at a snippet of what the data looks like from 2007 to 2018
+```{r}
+# temporary wbt variable
+wbt. <- wbt %>% 
+  dplyr::group_by(years, months) %>% 
+  dplyr::summarise(wbts = mean(wbts),
+                   dates = dplyr::first(dates)) %>% 
+  dplyr::filter(years > 2006 & years < 2019)
+
+ggplot(wbt.) +
+  aes(dates, wbts) +
+  geom_point(alpha = 0.3) +
+  geom_line(alpha = 0.6, color = 'red') +
+  ggtitle("WBT Trends from 2007 to 2018 within months, inclusive")
+
+ggplot(wbt.) +
+  aes(months, wbts) +
+  geom_point(alpha = 0.3) +
+  geom_line(alpha = 0.6, color = 'red') +
+  facet_wrap(. ~ years, ncol = 3) +
+  ggtitle("Split WBT Trends from 2007 to 2018 within months, inclusive")
+```
+There's a clear trend of local maxim and local minims, this is indicative of a 
+sinusoidal wave. However, 

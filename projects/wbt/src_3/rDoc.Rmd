@@ -1,0 +1,81 @@
+---
+title: "rDoc"
+author: "eve-ning"
+date: "8/23/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Processing and Cleaning
+
+This file is used to clean some data before processing it in python
+
+```{r}
+df <- read.csv("../../../../../Data/singapore/wbt/main.csv",
+               stringsAsFactors = F)
+
+summary(df)
+nrow(df) # We have 325752 rows
+```
+
+There are a few problems with this dataset
+
+* wbt_dates are in a string format, it'll be more informative if it is separated
+  or we can parse it through `lubridate`.
+* We also notice that almost all dates have 24 entries, except one.
+* This dataset is likely too precise and noisy due to hourly measurements prone
+  to being less predictable than a daily or monthly measurement. We might need
+  to aggregate them into months to suppress noise
+* The column names are unnecessarily long, we can shorten them for readability
+
+Here we load the required libraries before hand. I'll still prepend all rarer
+functions with their library names
+
+```{r}
+library(magrittr)
+library(tidyr)
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+```
+
+We first rename everything with colnames
+```{r}
+colnames(df) <- c("date", "hour", "temp")
+```
+
+We are going to use `lubridate` to parse this as if we were to separate them 
+into their individual categories `year`, `month`, `day`, it'll be hard to
+plot them on a continuous scale
+
+We also have to address the fact that `hour` is on a separate column
+```{r}
+df %<>% 
+  mutate(date = paste(date, hour), # Paste them together, implicit space sep
+         date = ymd_h(date))       # Cast into lubridate format
+
+# Save the cleaned data locally here
+write.csv(df,row.names = F, file = "main_clean.csv")
+```
+
+# Visualizing Data
+
+I personally prefer visualizing data in R, so we will do that here before
+switching to Python
+
+Let's take a sneak peek on what's in the data
+
+```{r}
+ggplot(df) +
+  aes()
+
+
+```
+
+
+## Aggregating
+```{r}
+```
